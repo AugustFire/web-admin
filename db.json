@@ -1,0 +1,43 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "张三",
+      "email": "zhangsan@example.com",
+      "role": "admin"
+    }
+  ],
+  "auth": [
+    {
+      "id": "1",
+      "username": "hot",
+      "password": "123456",
+      "role": "admin",
+      "token": "admin-token"
+    },
+    {
+      "id": "2",
+      "username": "user",
+      "password": "123456",
+      "role": "user",
+      "token": "user-token"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "name": "手机8848",
+      "price": 1999
+    },
+    {
+      "id": "2",
+      "name": "电脑",
+      "price": 5999
+    },
+    {
+      "id": "f8d6",
+      "name": "榴莲",
+      "price": "100"
+    }
+  ]
+}
