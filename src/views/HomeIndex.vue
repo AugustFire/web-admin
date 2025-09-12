@@ -43,7 +43,7 @@
   </el-menu>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import { ref } from 'vue'
 import {
   Document,
@@ -53,10 +53,10 @@ import {
 } from '@element-plus/icons-vue'
 
 const isCollapse = ref(true)
-const handleOpen = (key: string, keyPath: string[]) => {
+const handleOpen = (key, keyPath) => {
   console.log(key, keyPath)
 }
-const handleClose = (key: string, keyPath: string[]) => {
+const handleClose = (key, keyPath) => {
   console.log(key, keyPath)
 }
 </script>
