@@ -87,12 +87,29 @@ const handleLogout = () => {
 
 <template>
   <!-- <p><strong>Current route path:</strong> {{ $route.fullPath }}</p> -->
-  <el-container style="height: 100vh;overflow: auto;">
+  <el-container style="height: 100vh;">
     <el-aside :width="isCollapse ? '64px' : '200px'" style="transition: width 0.3s ease;border-right: 1px solid #e6e6e6;
         height: 100%;
         margin-top: 0;
-        padding-top: 0;">
-      <Menu :menus="menuRoutes" active="/home" :collapse="isCollapse" />
+        padding-top: 0;
+               display: flex;
+        flex-direction: column;
+        ">
+      <div class="logo-area" style="
+        height: 60px; /* 和 el-header 高度一致 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0; /* 防止被压缩 */
+      ">
+        <span v-if="!isCollapse">管理系统</span>
+        <span v-else>NBA</span>
+      </div>
+      <Menu :menus="menuRoutes" active="/home" :collapse="isCollapse" style="
+          flex: 1; /* 关键：让菜单填满剩余空间 */
+          overflow-y: auto; /* 如果菜单项本身超长，则菜单内部滚动 */
+          border-right: none; /* el-menu 默认有右边框，在 el-aside 中通常不需要 */
+        " />
     </el-aside>
 
     <!-- 主体 -->
@@ -128,13 +145,11 @@ const handleLogout = () => {
       </el-header>
 
       <!-- 内容区 -->
-      <el-main >
+      <el-main style="overflow: auto;">
         <router-view />
       </el-main>
     </el-container>
   </el-container>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
