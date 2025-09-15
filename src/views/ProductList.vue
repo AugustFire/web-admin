@@ -6,7 +6,7 @@ import { ElMessage } from 'element-plus'
 const tableData = ref([])
 const fetchProducts = async () => {
   try {
-    tableData.value = await request.get('/products')
+    tableData.value = await request.post('/product/list')
   } catch (e) {
     console.error(e)
     ElMessage.error('获取用户失败')

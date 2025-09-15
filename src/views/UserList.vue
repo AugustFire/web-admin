@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import request from '@/utils/request'
 import { ElMessage, ElLoading } from 'element-plus'
 
@@ -55,8 +55,8 @@ const fetchUsers = async () => {
       page: page.value,
       size: pageSize.value,
       name: searchKeyword.value,
-      sortField: sortField.value,
-      sortOrder: sortOrder.value
+      // sortField: sortField.value,
+      // sortOrder: sortOrder.value
     })
     users.value = res.records || []
     total.value = res.total || 0

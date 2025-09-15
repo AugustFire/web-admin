@@ -1,69 +1,79 @@
 <template>
-  <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
-    <el-radio-button :value="false">expand</el-radio-button>
-    <el-radio-button :value="true">collapse</el-radio-button>
-  </el-radio-group>
-  <el-menu
-    default-active="2"
-    class="el-menu-vertical-demo"
-    :collapse="isCollapse"
-    @open="handleOpen"
-    @close="handleClose"
+  <el-tabs
+    v-model="editableTabsValue"
+    type="card"
+    editable
+    class="demo-tabs"
+    @edit="handleTabsEdit"
   >
-    <el-sub-menu index="1">
-      <template #title>
-        <el-icon><location /></el-icon>
-        <span>Head 1</span>
-      </template>
-      <!-- <el-menu-item-group> -->
-        <!-- <template #title><span>Group One</span></template> -->
-        <el-menu-item index="1-1">item one</el-menu-item>
-        <el-menu-item index="1-2">item two</el-menu-item>
-      <!-- </el-menu-item-group> -->
-      <!-- <el-menu-item-group title="Group Two"> -->
-        <el-menu-item index="1-3">item three</el-menu-item>
-      <!-- </el-menu-item-group> -->
-      <el-sub-menu index="1-4">
-        <template #title><span>item four</span></template>
-        <el-menu-item index="1-4-1">item one</el-menu-item>
-      </el-sub-menu>
-    </el-sub-menu>
-    <el-menu-item index="2">
-      <el-icon><icon-menu /></el-icon>
-      <template #title>Head Two</template>
-    </el-menu-item>
-    <el-menu-item index="3" disabled>
-      <el-icon><document /></el-icon>
-      <template #title>Head Three</template>
-    </el-menu-item>
-    <el-menu-item index="4">
-      <el-icon><setting /></el-icon>
-      <template #title>设置4</template>
-    </el-menu-item>
-  </el-menu>
+    <el-tab-pane
+      v-for="item in editableTabs"
+      :key="item.name"
+      :label="item.title"
+      :name="item.name"
+    >
+      {{ item.content }}
+    </el-tab-pane>
+  </el-tabs>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue'
-import {
-  Document,
-  Menu as IconMenu,
-  Location,
-  Setting,
-} from '@element-plus/icons-vue'
 
-const isCollapse = ref(true)
-const handleOpen = (key, keyPath) => {
-  console.log(key, keyPath)
-}
-const handleClose = (key, keyPath) => {
-  console.log(key, keyPath)
+import type { TabPaneName } from 'element-plus'
+
+let tabIndex = 2
+const editableTabsValue = ref('2')
+const editableTabs = ref([
+  {
+    title: 'Tab 1',
+    name: '1',
+    content: 'Tab 1 content',
+  },
+  {
+    title: 'Tab 2',
+    name: '2',
+    content: 'Tab 2 content',
+  },
+])
+
+const handleTabsEdit = (
+  targetName: TabPaneName | undefined,
+  action: 'remove' | 'add'
+) => {
+  if (action === 'add') {
+    const newTabName = `${++tabIndex}`
+    editableTabs.value.push({
+      title: 'New Tab',
+      name: newTabName,
+      content: 'New Tab content',
+    })
+    editableTabsValue.value = newTabName
+  } else if (action === 'remove') {
+    const tabs = editableTabs.value
+    let activeName = editableTabsValue.value
+    if (activeName === targetName) {
+      tabs.forEach((tab, index) => {
+        if (tab.name === targetName) {
+          const nextTab = tabs[index + 1] || tabs[index - 1]
+          if (nextTab) {
+            activeName = nextTab.name
+          }
+        }
+      })
+    }
+
+    editableTabsValue.value = activeName
+    editableTabs.value = tabs.filter((tab) => tab.name !== targetName)
+  }
 }
 </script>
 
 <style>
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
-  min-height: 400px;
+.demo-tabs > .el-tabs__content {
+  padding: 32px;
+  color: #6b778c;
+  font-size: 32px;
+  font-weight: 600;
 }
 </style>

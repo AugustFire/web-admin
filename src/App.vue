@@ -4,4 +4,9 @@
   <router-view />
 </template>
 
-<style scoped></style>
+<style scoped>
+  body{
+    margin: 0;
+    padding: 0;
+  }
+</style>
