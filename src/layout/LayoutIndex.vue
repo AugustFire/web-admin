@@ -146,7 +146,15 @@ const handleLogout = () => {
 
       <!-- 内容区 -->
       <el-main style="overflow: auto;">
-        <router-view />
+        <!-- <router-view /> -->
+        <el-card style="height: 100%;">
+          <template #header>
+            <div class="card-header-content">
+              <span style="font-size: 18px; font-weight: bolder;">{{ route.meta.title || '标题' }}</span>
+            </div>
+          </template>
+          <router-view />
+        </el-card>
       </el-main>
     </el-container>
   </el-container>

@@ -223,10 +223,8 @@ const handleSortChange = ({ prop, order }) => {
 </script>
 
 <template>
-  <el-card shadow="always" style="height:auto;">
-<div>
-    <h2>用户管理</h2>
 
+<div>
     <!-- 搜索框 -->
     <div style="margin-bottom: 12px;">
       <el-input
@@ -314,6 +312,6 @@ const handleSortChange = ({ prop, order }) => {
       <el-button type="primary" @click="updateUser">确定</el-button>
     </template>
   </el-dialog>
-  </el-card>
+
 
 </template>

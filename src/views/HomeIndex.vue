@@ -1,5 +1,3 @@
 <template>
-  <el-card shadow="always" style="max-width: 480px">
-    <p v-for="o in 4" :key="o" class="text item">{{ 'List item ' + o }}</p>
-  </el-card>
+  <span style="color: green;">欢迎来到管理系统</span>
 </template>

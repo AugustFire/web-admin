@@ -79,9 +79,8 @@ const delProduct = async () => {
 
 </script>
 <template>
-    <el-card shadow="always" style="height:auto;">
+
 <div>
-    <h2>商品管理</h2>
     <!-- 添加用户按钮 -->
     <el-button type="primary" @click="openDialog">添加商品</el-button>
     <el-table :data="tableData" border style="margin-top: 16px;width: 30%">
@@ -144,7 +143,7 @@ const delProduct = async () => {
 
 
   </div>
-  </el-card>
+
 
 
 </template>

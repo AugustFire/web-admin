@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Layout from '@/layout/Layout.vue'
+import Layout from '@/layout/LayoutIndex.vue'
 import Login from '@/views/LoginIndex.vue'
 
 const routes = [
