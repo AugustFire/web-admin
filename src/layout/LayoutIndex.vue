@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watchEffect, computed } from 'vue'
+import { ref, watchEffect, computed, nextTick } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { Expand, Fold } from '@element-plus/icons-vue'
 import Menu from '@/components/Menu.vue'
@@ -46,33 +46,23 @@ const handleTabClick = (tab) => {
   router.push(tab.props.name)
 }
 
-// const removeTab = (targetPath) => {
-//   if (targetPath === '/home') return  // 首页永远不能关
-//   const index = tabs.value.findIndex(tab => tab.path === targetPath)
-//   tabs.value.splice(index, 1)
-//   if (activeTab.value === targetPath) {
-//     const lastTab = tabs.value[index - 1] || tabs.value[0]
-//     if (lastTab) router.push(lastTab.path)
-//   }
-// }
+
+
 const removeTab = (targetPath) => {
-  if (targetPath === '/home') return  // 首页永远不能关
+  if (targetPath === '/home') return
+
   const index = tabs.value.findIndex(tab => tab.path === targetPath)
-
-  // 如果删除的是当前激活的标签页
-  if (activeTab.value === targetPath) {
-    const lastTab = tabs.value[index - 1] || tabs.value[0]
-    // 先更新activeTab，再执行删除操作
-    activeTab.value = lastTab.path
-    // 立即执行路由跳转
-    router.push(lastTab.path)
-  }
-
-  // 执行删除操作
   tabs.value.splice(index, 1)
 
-  // 强制更新响应式数据，确保DOM立即更新
-  tabs.value = [...tabs.value]
+  if (activeTab.value === targetPath) {
+    const lastTab = tabs.value[index - 1] || tabs.value[0]
+    if (lastTab) {
+      nextTick(() => {
+        activeTab.value = lastTab.path
+        router.push(lastTab.path)
+      })
+    }
+  }
 }
 
 
